@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_slidable/src/widgets/slidable.dart';
 
 const bool _kCloseOnTap = true;
@@ -102,94 +101,6 @@ class SlideAction extends ClosableSlideAction {
       decoration: decoration,
       child: Center(
         child: child,
-      ),
-    );
-  }
-}
-
-/// A basic slide action with an icon, a caption and a background color.
-class IconSlideAction extends ClosableSlideAction {
-  /// Creates a slide action with an icon, a [caption] if set and a
-  /// background color.
-  ///
-  /// The [closeOnTap] argument must not be null.
-  const IconSlideAction({
-    Key? key,
-    this.icon,
-    this.iconWidget,
-    this.caption,
-    Color? color,
-    this.foregroundColor,
-    VoidCallback? onTap,
-    bool closeOnTap = _kCloseOnTap,
-  })  : assert(icon != null || iconWidget != null,
-            'Either set icon or iconWidget.'),
-        super(
-          key: key,
-          color: color ?? Colors.white,
-          onTap: onTap,
-          closeOnTap: closeOnTap,
-        );
-
-  /// The icon to show.
-  final IconData? icon;
-
-  /// A custom widget to represent the icon.
-  /// If both [icon] and [iconWidget] are set, they will be shown at the same
-  /// time.
-  final Widget? iconWidget;
-
-  /// The caption below the icon.
-  final String? caption;
-
-  /// The color used for [icon] and [caption].
-  final Color? foregroundColor;
-
-  @override
-  Widget buildAction(BuildContext context) {
-    final Color estimatedColor =
-        ThemeData.estimateBrightnessForColor(color!) == Brightness.light
-            ? Colors.black
-            : Colors.white;
-
-    final List<Widget> widgets = [];
-
-    if (icon != null) {
-      widgets.add(
-        Flexible(
-          child: Icon(
-            icon,
-            color: foregroundColor ?? estimatedColor,
-          ),
-        ),
-      );
-    }
-
-    if (iconWidget != null) {
-      widgets.add(
-        Flexible(child: iconWidget!),
-      );
-    }
-
-    if (caption != null) {
-      widgets.add(
-        Flexible(
-          child: Text(
-            caption!,
-            overflow: TextOverflow.ellipsis,
-            style: Theme.of(context)
-                .primaryTextTheme
-                .caption!
-                .copyWith(color: foregroundColor ?? estimatedColor),
-          ),
-        ),
-      );
-    }
-
-    return Center(
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: widgets,
       ),
     );
   }
